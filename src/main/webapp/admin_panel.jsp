@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Waste Reduction Platform</title>
+    <title>Admin User Homepage</title>
     <link rel="stylesheet" href="asset/css/style.css">
     <script src="asset/js/script.js" defer></script>
 </head>
