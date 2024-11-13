@@ -1,0 +1,2 @@
+VAR#>mvn install:install-file -Dfile="S:\College\Sem3\CST8288\SQL\JDBC\mysql-connector-j-8.4.0.jar" -DgroupId=com.oracle \
+		-DartifactId=ojdbc8 -Dversion=19.3 -Dpackaging=jar
