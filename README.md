@@ -1,4 +1,4 @@
-# java final project
+# sql injection prevention
 ### Setting up tutorial
 1. Install IntelliJ (this project is developed using IntelliJ).
 2. Download Tomcat 10.x from the official website.
