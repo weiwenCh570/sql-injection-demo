@@ -16,3 +16,18 @@
 ![img_3.png](img_3.png)
 7. Run the project
 ![img_1.png](img_1.png)
+
+
+Normal Login Entry (Prevents SQL Injection):
+http://localhost:8080/final_project_war/login
+
+Dummy Login Entry (Allows SQL Injection):
+http://localhost:8080/final_project_war/login2
+
+Example Input (Note: There’s a space after --):
+
+email:
+' OR '1'='1' -- 
+
+password:
+any 

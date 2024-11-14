@@ -15,9 +15,15 @@ public class AuthenticationRepo {
         if (user == null) {
             throw new IllegalArgumentException("**Username or password is incorrect**");
         }
-//        if (user.getStatus() != 1) {
-//            throw new IllegalArgumentException("**User account is suspended**");
-//        }
+        return user;
+    }
+
+    public UsersDTO checkLoginData2(String email, String pwd) {
+        UsersDaoImpl usersDao = new UsersDaoImpl();
+        UsersDTO user = usersDao.checkAuthenticationByUsernameAndPwd2(email, pwd);
+        if (user == null) {
+            throw new IllegalArgumentException("**Username or password is incorrect**");
+        }
         return user;
     }
 
