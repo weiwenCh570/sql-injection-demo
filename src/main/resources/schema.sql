@@ -54,3 +54,30 @@ values ("laptop", 850, "2019-08-08"),
        ("headphone", 199.6, "2023-06-01");
 select *
 from products;
+
+-- Create a view for products: only shows product name and price
+CREATE OR REPLACE VIEW view_products AS
+SELECT
+    product_id,
+    product_name,
+    price
+FROM
+    products;
+
+-- Create a view for users: hides passwords and shows roles
+CREATE OR REPLACE VIEW view_users AS
+SELECT
+    u.user_id,
+    u.user_name,
+    u.email,
+    r.role_name
+FROM
+    users u
+        JOIN
+    roles r
+    ON
+        u.role_id = r.id;
+
+-- Test the views
+SELECT * FROM view_products;
+SELECT * FROM view_users;
