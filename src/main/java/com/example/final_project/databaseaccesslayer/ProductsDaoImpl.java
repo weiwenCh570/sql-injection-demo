@@ -6,6 +6,7 @@ import com.example.final_project.services.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,28 @@ public class ProductsDaoImpl {
 
             // Execute the SQL
             ps.execute();
+
+            System.out.println("Product added successfully!");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void addProduct2(String product_name, double price) {
+        try{
+            Connection con = DataSource.getConnection();
+
+            // Construct the SQL query directly (vulnerable to SQL injection for testing)
+            String sql = "INSERT INTO products (product_name, price) VALUES ('" + product_name + "', " + price + ")";
+
+            // Print the SQL query for debugging purposes
+            System.out.println("Executing SQL: " + sql);
+
+            // Execute the query
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
 
             System.out.println("Product added successfully!");
 

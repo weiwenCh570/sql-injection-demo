@@ -48,6 +48,7 @@
 <main>
     <h1 style="text-align: center">Admin Panel</h1>
     <a href="add_product">Add product</a>
+    <a href="add_product2" style="margin-left: 30px">Add product2</a>
     <br><br><br>
     <p>The product list is retrieved from the <strong>product table</strong>.</p>
     <table id="inventoryTable">

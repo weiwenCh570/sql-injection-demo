@@ -57,3 +57,37 @@ Product Price: 200
 
 Observe the outcome. You will see that the procedure effectively prevents the SQL injection attempt, as demonstrated below.
 ![img_4.png](img_4.png)
+
+## Using a triggers to prevent SQL injection
+### create a product trigger
+```sql
+DROP TRIGGER IF EXISTS prevent_sql_injection_products;
+CREATE TRIGGER prevent_sql_injection_products
+    BEFORE INSERT ON products
+    FOR EACH ROW
+BEGIN
+    -- Check for suspicious characters or keywords in product_name
+    IF NEW.product_name REGEXP '.*(--)|(;)|(\')|(\")|(\bOR\b)|(\bAND\b)|(\bSELECT\b)|(\bDROP\b).*' THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'SQL Injection attempt detected in product_name';
+    END IF;
+
+    -- Optional: Additional validation for product_price
+    -- Check for excessively large or negative prices
+    IF NEW.price < 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid price: must be a positive number';
+    END IF;
+
+END $$
+```
+Log in as an admin and navigate to the following page:
+http://localhost:8080/final_project_war/add_product2
+Input the following values to test SQL injection:
+
+Product Name: TestProduct; DROP TABLE products; --
+
+Product Price: 200
+
+Observe the outcome. You will see that the trigger effectively prevents the SQL injection attempt, as demonstrated below.
+![img_5.png](img_5.png)

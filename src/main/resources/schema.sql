@@ -150,6 +150,32 @@ END $$
 
 DELIMITER ;
 
+DELIMITER $$
+
+-- Trigger: prevent_sql_injection_products
+-- Prevents SQL injection on 'products' table.
+DROP TRIGGER IF EXISTS prevent_sql_injection_products;
+CREATE TRIGGER prevent_sql_injection_products
+    BEFORE INSERT ON products
+    FOR EACH ROW
+BEGIN
+    -- Check for suspicious characters or keywords in product_name
+    IF NEW.product_name REGEXP '.*(--)|(;)|(\')|(\")|(\bOR\b)|(\bAND\b)|(\bSELECT\b)|(\bDROP\b).*' THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'SQL Injection attempt detected in product_name';
+    END IF;
+
+    -- Optional: Additional validation for product_price
+    -- Check for excessively large or negative prices
+    IF NEW.price < 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid price: must be a positive number';
+    END IF;
+
+END $$
+
+DELIMITER ;
+
 /*
 -- testing for user_name
 INSERT INTO users (role_id, user_name, email, password)

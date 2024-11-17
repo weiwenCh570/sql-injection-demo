@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "admin_panel", urlPatterns = {"/admin_panel", "/add_product"})
+@WebServlet(name = "admin_panel", urlPatterns = {"/admin_panel", "/add_product", "/add_product2"})
 public class AdminPanelController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
@@ -22,12 +22,18 @@ public class AdminPanelController extends HttpServlet {
         if(path.equals("/add_product")) {
             addProductPage(request, response);
         }
+        if(path.equals("/add_product2")) {
+            addProductPage2(request, response);
+        }
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
         if (path.equals("/add_product")) {
             addProduct(request, response);
+        }
+        if (path.equals("/add_product2")) {
+            addProduct2(request, response);
         }
     }
 
@@ -48,5 +54,16 @@ public class AdminPanelController extends HttpServlet {
         ProductsDaoImpl productsDao = new ProductsDaoImpl();
         productsDao.addProduct(request.getParameter("product_name"), Double.parseDouble(request.getParameter("product_price")));
         response.sendRedirect("admin_panel");
+    }
+
+    public void addProduct2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ProductsDaoImpl productsDao = new ProductsDaoImpl();
+        productsDao.addProduct2(request.getParameter("product_name"), Double.parseDouble(request.getParameter("product_price")));
+        response.sendRedirect("admin_panel");
+    }
+
+    public void addProductPage2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/add_product2.jsp");
+        dispatcher.forward(request, response);
     }
 }

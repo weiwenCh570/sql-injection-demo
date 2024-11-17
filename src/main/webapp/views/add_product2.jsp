@@ -42,9 +42,9 @@
 </header>
 
 <main>
-    <p style="text-align: center; margin-top: 10px; margin-bottom: 10px">This page permits SQL injection through the application code, allowing verification of whether the <strong>procedure</strong> effectively prevents it.</p>
+    <p style="text-align: center; margin-top: 10px; margin-bottom: 10px">This page permits SQL injection through the application code, allowing you to verify whether the <strong>trigger</strong> successfully prevents it</p>
     <div class="form-container">
-        <form action="add_product" method="post">
+        <form action="add_product2" method="post">
             <div class="form-group">
                 <label for="product_name">Product Name:</label>
                 <input type="text" id="product_name" name="product_name" class="form-control" required>
