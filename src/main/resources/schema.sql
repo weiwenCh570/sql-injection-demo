@@ -81,3 +81,42 @@ FROM
 -- Test the views
 SELECT * FROM view_products;
 SELECT * FROM view_users;
+
+-- Create a procedure to add a new product
+DELIMITER $$
+DROP PROCEDURE IF EXISTS AddProduct;
+CREATE PROCEDURE AddProduct(
+    IN p_product_name VARCHAR(50),
+    IN p_price DOUBLE,
+    IN p_updated_at TIMESTAMP
+)
+BEGIN
+    -- Insert a new product into the products table
+    INSERT INTO products(product_name, price, updated_at)
+    VALUES (p_product_name, p_price, p_updated_at);
+END $$
+
+DELIMITER ;
+
+-- Test the AddProduct procedure
+CALL AddProduct("smartwatch", 350.5, "2024-11-15");
+
+-- Create a procedure to add a new user
+DELIMITER $$
+DROP PROCEDURE IF EXISTS AddUser;
+CREATE PROCEDURE AddUser(
+    IN p_role_id INT,
+    IN p_user_name VARCHAR(50),
+    IN p_email VARCHAR(50),
+    IN p_password VARCHAR(50)
+)
+BEGIN
+    -- Insert a new user into the users table
+    INSERT INTO users(role_id, user_name, email, password)
+    VALUES (p_role_id, p_user_name, p_email, p_password);
+END $$
+
+DELIMITER ;
+
+-- Test the AddUser procedure
+CALL AddUser(2, "new_customer", "new_customer@algonquin.com", "password123");
