@@ -22,6 +22,27 @@ public class ProductsDaoImpl {
                 productsDTO.setProduct_id(rs.getInt("product_id"));
                 productsDTO.setProduct_name(rs.getString("product_name"));
                 productsDTO.setUpdated_at(rs.getString("updated_at"));
+                productsDTO.setPrice(rs.getDouble("price"));
+                products.add(productsDTO);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<ProductsDTO> getAllProducts2() {
+        List<ProductsDTO> products = new ArrayList<>();
+        try {
+            Connection con = DataSource.getConnection();
+            String sql = "select * from view_products";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductsDTO productsDTO = new ProductsDTO();
+                productsDTO.setProduct_id(rs.getInt("product_id"));
+                productsDTO.setProduct_name(rs.getString("product_name"));
+                productsDTO.setPrice(rs.getDouble("price"));
                 products.add(productsDTO);
             }
         } catch (Exception e) {

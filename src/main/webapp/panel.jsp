@@ -1,4 +1,6 @@
-<%@ page import="com.example.final_project.models.UsersDTO" %><%--
+<%@ page import="com.example.final_project.models.UsersDTO" %>
+<%@ page import="com.example.final_project.models.ProductsDTO" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: weiwen chen
   Date: 2024-07-21
@@ -44,7 +46,37 @@
 </header>
 
 <main>
-    <h1 style="text-align: center">Welcome!!!!!</h1>
+    <h1 style="text-align: center">Customer Panel!!!!!</h1>
+
+    <table id="inventoryTable">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>product name</th>
+            <th>price</th>
+            <%--        <th>update time</th>--%>
+            <%--            <th>Actions</th>--%>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+
+            List<ProductsDTO> products = (List<ProductsDTO>) request.getAttribute("products");
+            for (ProductsDTO product : products) {
+        %>
+        <tr>
+            <td data-label="Id"><%= product.getProduct_id() %>
+            </td>
+            <td data-label="Name"><%= product.getProduct_name() %>
+            </td>
+            <td data-label="Email"><%= product.getPrice() %>
+            </td>
+        </tr>
+        <%
+            }
+        %>
+        </tbody>
+    </table>
 </main>
 
 <%--<footer class="footer">--%>
