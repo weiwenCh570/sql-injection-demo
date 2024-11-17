@@ -125,3 +125,43 @@ DELIMITER ;
 
 -- Test the AddUser procedure
 CALL AddUser(2, "new_customer", "new_customer@algonquin.com", "password123");
+
+-- Triggers to prevent SQL injection attempts.
+DELIMITER $$
+drop trigger if exists prevent_sql_injection;
+CREATE TRIGGER prevent_sql_injection
+    BEFORE INSERT ON users
+    FOR EACH ROW
+BEGIN
+    -- Check for suspicious characters or keywords in user_name
+    IF NEW.user_name REGEXP '.*(--)|(;)|(\')|(\")|(\bOR\b)|(\bAND\b)|(\bSELECT\b)|(\bDROP\b).*' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'SQL Injection attempt detected in user_name';
+    END IF;
+
+    -- Check for suspicious characters or keywords in email
+    IF NEW.email REGEXP '.*(--)|(;)|(\')|(\")|(\bOR\b)|(\bAND\b)|(\bSELECT\b)|(\bDROP\b).*' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'SQL Injection attempt detected in email';
+    END IF;
+
+    -- Check for suspicious characters or keywords in password
+    IF NEW.password REGEXP '.*(--)|(;)|(\')|(\")|(\bOR\b)|(\bAND\b)|(\bSELECT\b)|(\bDROP\b).*' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'SQL Injection attempt detected in password';
+    END IF;
+END $$
+
+DELIMITER ;
+
+/*
+-- testing for user_name
+INSERT INTO users (role_id, user_name, email, password)
+VALUES (1, 'admin OR 1=1 --', 'admin@example.com', 'password123');
+-- testing for password
+INSERT INTO users (role_id, user_name, email, password)
+VALUES (1, 'invalid2', 'admin@example.com', 'DROP TABLE users');
+-- testing for email
+INSERT INTO users (role_id, user_name, email, password)
+VALUES (2, 'invalid3', 'johndoe@example.com SELECT * FROM users --', 'password123');
+-- testing with valid insert
+INSERT INTO users (role_id, user_name, email, password)
+VALUES (2, 'validUser', 'validUser@example.com', 'password123' );
+ */
