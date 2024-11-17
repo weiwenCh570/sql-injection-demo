@@ -55,6 +55,11 @@ values ("laptop", 850, "2019-08-08"),
 select *
 from products;
 
+-- sql injection example
+SELECT user_name, user_id, email, role_id
+FROM users
+WHERE email='' OR '1'='1' -- AND password='dsdds';
+
 -- Create a view for products: only shows product name and price
 CREATE OR REPLACE VIEW view_products AS
 SELECT
