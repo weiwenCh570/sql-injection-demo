@@ -46,7 +46,10 @@
 </header>
 
 <main>
-    <h1 style="text-align: center">Admin Panel!!!!!</h1>
+    <h1 style="text-align: center">Admin Panel</h1>
+    <a href="add_product">Add product</a>
+    <br><br><br>
+    <p>The product list is retrieved from the <strong>product table</strong>.</p>
     <table id="inventoryTable">
         <thead>
         <tr>

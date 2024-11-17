@@ -31,3 +31,29 @@ email:
 
 password:
 any 
+
+## Using a procedure to prevent SQL injection
+### create a product procedure
+```sql
+DROP PROCEDURE IF EXISTS AddProduct;
+CREATE PROCEDURE AddProduct(
+    IN p_product_name VARCHAR(50),
+    IN p_price DOUBLE
+)
+BEGIN
+    -- Insert a new product into the products table
+    INSERT INTO products(product_name, price)
+    VALUES (p_product_name, p_price);
+END $$
+```
+Log in as an admin and navigate to the following page: 
+http://localhost:8080/final_project_war/add_product
+
+Input the following values to test SQL injection:
+
+Product Name: TestProduct', 0); DROP TABLE products; --
+
+Product Price: 200
+
+Observe the outcome. You will see that the procedure effectively prevents the SQL injection attempt, as demonstrated below.
+![img_4.png](img_4.png)

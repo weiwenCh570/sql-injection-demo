@@ -48,6 +48,8 @@
 <main>
     <h1 style="text-align: center">Customer Panel!!!!!</h1>
 
+    <br><br><br>
+    <p>The product list is retrieved from the <strong>view_products view</strong>.</p>
     <table id="inventoryTable">
         <thead>
         <tr>

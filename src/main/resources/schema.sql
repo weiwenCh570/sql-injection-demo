@@ -27,7 +27,7 @@ create table products
     product_id   int AUTO_INCREMENT,
     product_name varchar(50),
     price double,
-    updated_at   timestamp,
+    updated_at   timestamp default current_timestamp,
     PRIMARY KEY (product_id)
 );
 
@@ -92,13 +92,12 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS AddProduct;
 CREATE PROCEDURE AddProduct(
     IN p_product_name VARCHAR(50),
-    IN p_price DOUBLE,
-    IN p_updated_at TIMESTAMP
+    IN p_price DOUBLE
 )
 BEGIN
     -- Insert a new product into the products table
-    INSERT INTO products(product_name, price, updated_at)
-    VALUES (p_product_name, p_price, p_updated_at);
+    INSERT INTO products(product_name, price)
+    VALUES (p_product_name, p_price);
 END $$
 
 DELIMITER ;
